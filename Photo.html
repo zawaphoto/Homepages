@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang = "ja">
+    <head>
+        <meta charset = "UTF-8"><!-- 文字化け防止-->
+        <meta name = "viewport" content =  "width = device-width, initial-scale = 1"><!--画面サイズ？-->
+        <!--<meta http-equiv = "X-UA-Compatible" content = "IE = edge"> -->
+        <link rel="stylesheet" href="css/index.css" mesia="all">
+        <title>Yuya Izawa</title>
+        <style>
+            .slide {
+                margin : 0 auto;
+                /*border: 1px solid black;*/
+                width: 100%;
+                background-color: black;
+            }
+            img {
+                max-width: 100%;
+            }
+            .toolbar {
+                overflow: hidden;
+                text-align: center;
+                background-color:#252526 ;
+            }
+            .nav {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 16px 0;
+            }
+            #prev {
+                margin-right: 0.5rem;
+                width: 16px;
+                height: 16px;
+                background: url(img/arrow-left.svg) no-repeat;
+            }
+            #next {
+                margin-left: 0.5rem;
+                width: 16px;
+                height: 16px;
+                background: url(img/arrow-right.svg) no-repeat;
+            }
+            #page {
+                color: white;
+            }
+            </style>
+    </head>
+    <body>
+        <header>
+            <h1 class = "headline">
+                Welcome!<br>
+                Yuya Izawa's Page</h1>
+        </header>
+        <nav id ="gnav" class = "gnav">
+            <ul class = "container">
+                <li><a href ="index.html">Profile </a></li>
+                <li><a href = "research.html">Research</a></li>
+                <li><a href = "hobby.html"> Hobby</a> </li>
+                <li><a href = "link.html">Link</a></li>
+            </ul>
+        </nav>
+        <main id = "contents">
+            <nav class = "gnav">
+                <ul class = "container">
+                    <li><a href ="hobby.html">Music①</a></li>
+                    <li><a href = "Music2.html">Music②</a></li>
+                    <li><a href = "Car.html"> Car</a> </li>
+                    <li><a href = "Photo.html">Photo</a></li>
+                </ul>
+            </nav>
+            <section id = "hobby">
+                <h2 class = "h">Photo</h2>
+                <div class="slide">
+                    <div class="image_box">
+                        <img id="main_image" src="img/1.jpg">
+                    </div>
+                    <div class="toolbar">
+                        <div class="nav">
+                            <div id="prev"></div>
+                            <div id="page"></div>
+                            <div id="next"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+         
+            
+        </main>
+        <script>
+            'use strict';
+            
+            const images = ['img/1.jpg', 'img/2.jpg', 'img/3.jpg', 'img/4.jpg', 'img/5.jpg',
+                            'img/6.jpg', 'img/7.jpg', 'img/8.jpg', 'img/9.jpg', 'img/10.jpg',
+                            'img/11.jpg', 'img/12.jpg', 'img/13.jpg', 'img/14.jpg', 'img/15.jpg',
+                            'img/16.jpg', 'img/17.jpg', 'img/18.jpg', 'img/19.jpg', 'img/20.jpg',
+                            'img/21.jpg', 'img/22.jpg', 'img/23.jpg', 'img/24.jpg'];
+            images.forEach(function(item, index) {
+                preloadImage(item);
+            });
+            let current = 0;
+            
+            function changeImage(num) {
+                if(current + num >= 0 && current + num < images.length) {
+                    current += num;
+                    document.getElementById('main_image').src = images[current];
+                    pageNum();
+                }else if( current + num == images.length){
+                    current = 0;
+                    document.getElementById('main_image').src = images[current];
+                    pageNum();
+                }
+                else if(current + num == -1){
+                    current = images.length-1;
+                    document.getElementById('main_image').src = images[current];
+                    pageNum();
+                }
+            };
+            
+            function pageNum() {
+                document.getElementById('page').textContent = `${current + 1}/${images.length}`;
+            }
+            
+            function preloadImage(path) {
+                let imgTag = document.createElement('img');
+                imgTag.src = path;
+            }
+            
+            pageNum();
+            
+            document.getElementById('prev').onclick = function() {
+                changeImage(-1);
+            };
+            document.getElementById('next').onclick = function() {
+                changeImage(1);
+            };
+            </script>
+    </body>
+
+</html>
